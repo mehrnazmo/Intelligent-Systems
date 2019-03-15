@@ -1,12 +1,5 @@
 ***********************************************
 Robot Traversal
 *******************************************************************
-Simulation of a robot and checking if a robot collides with any objects while traversing a room.
+Traversal of a robot in an arbitrary floor using gradient descent and stochastic gradient descent. This is done by defining a mesh grid and potential over the floor. The floor plan can be changed. Objects that the robot should avoid are defined as repulsers. Attractors and different start/end points can also be defined.
 
-displayRoom: shows the room plan
-
-detectObject: checks for object in a specific direction
-
-haveIBeenHereBefore: checks if the robot has been to the location specified in the next step
-
-nav: main code to guide the robot (indicating the next step to be taken by the robot)
