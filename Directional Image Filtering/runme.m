@@ -1,0 +1,76 @@
+close all;clear all;clc;
+load('/Users/mehrnazmotamed/Documents/MATLAB/Intelligent Systems/HW4/data/Problem_1/data.mat');
+imshow(image);
+magnitude_response = abs(fftshift(fft2(image)));
+figure();colormap(gray);
+% imagesc((magnitude_response),[0,255]); % ax.YScale = 'log'; 
+imagesc(20*log10((magnitude_response)));
+%% Real Part
+figure();colormap(gray);
+subplot(2,2,1);
+imagesc(real(filters(:,:,1)));
+title('Real Gabor, orientation 0');
+subplot(2,2,2);
+imagesc(real(filters(:,:,2)));
+title('Real Gabor, orientation 45');
+subplot(2,2,3);
+imagesc(real(filters(:,:,3)));
+title('Real Gabor, orientation 90');
+subplot(2,2,4);
+imagesc(real(filters(:,:,4)));
+title('Real Gabor, orientation 135');
+%% Imaginary Part
+figure();colormap(gray);
+subplot(2,2,1);
+imagesc(imag(filters(:,:,1)));
+title('Imaginary Gabor, orientation 0');
+subplot(2,2,2);
+imagesc(imag(filters(:,:,2)));
+title('Imaginary Gabor, orientation 45');
+subplot(2,2,3);
+imagesc(imag(filters(:,:,3)));
+title('Imaginary Gabor, orientation 90');
+subplot(2,2,4);
+imagesc(imag(filters(:,:,4)));
+title('Imaginary Gabor, orientation 135');
+%% Magnitude response of the Fourier Domain of each filter
+figure();colormap(gray);
+subplot(2,2,1);
+imagesc(abs(fftshift(fft2(filters(:,:,1)))));
+title('Magnitude response Gabor, orientation 0');
+subplot(2,2,2);
+imagesc(abs(fftshift(fft2(filters(:,:,2)))));
+title('Magnitude response Gabor, orientation 45');
+subplot(2,2,3);
+imagesc(abs(fftshift(fft2(filters(:,:,3)))));
+title('Magnitude response Gabor, orientation 90');
+subplot(2,2,4);
+imagesc(abs(fftshift(fft2(filters(:,:,4)))));
+title('Magnitude response Gabor, orientation 135');
+%% Magnitude of the filtered images
+image_0 = abs(conv2(image, filters(:,:,1), 'same'));
+image_45 = abs(conv2(image, filters(:,:,2), 'same'));
+image_90 = abs(conv2(image, filters(:,:,3), 'same'));
+image_135 = abs(conv2(image, filters(:,:,4), 'same'));
+figure();
+subplot(2,2,1);
+imshow(image_0);
+title('Filtered image, orientation 0');
+subplot(2,2,2);
+imshow(image_45);
+title('Filtered image, orientation 45');
+subplot(2,2,3);
+imshow(image_90);
+title('Filtered image, orientation 90');
+subplot(2,2,4);
+imshow(image_135);
+title('Filtered image, orientation 135');
+%% Final image by adding all the filters
+image_result = image_0+image_45+image_90+image_135;
+figure();
+imshow(image_result);
+%% Magnitude response of the resulting image
+figure();colormap(gray);
+% imagesc(abs(fftshift(fft2(image_result))),[0,255]);% ax.YScale = 'log'; 
+imagesc(20*log10(abs(fftshift(fft2(image_result)))));
+title('Magnitude response of the resulting image');
